@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CompanyReport, GroundingSource } from '../types';
 import { ReportSection } from './ReportSection';
 import { 
@@ -20,6 +20,16 @@ interface DashboardProps {
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({ data, sources }) => {
+  const [focusedSection, setFocusedSection] = useState<'all' | 'none' | string>('all');
+
+  const sections = [
+    { id: 'identity', label: 'Identity' },
+    { id: 'operations', label: 'Operations & Strategy' },
+    { id: 'culture', label: 'Culture & Values' },
+    { id: 'recent', label: 'Recent Intel' },
+    { id: 'interview', label: 'Interview Insights' },
+    { id: 'cheat', label: 'Cheat Sheet' },
+  ];
   // Defensive: check for required fields
   if (!data || !data.identity || !data.operations || !data.culture || !data.recent || !data.interview || !data.cheatSheet) {
     // Retry button: calls window.location.reload() to reset the app state
@@ -58,10 +68,32 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, sources }) => {
         </div>
       </div>
 
+      {/* Controls: dropdown + collapse/expand */}
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-4">
+        <div className="flex items-center gap-2">
+          <label className="text-xs text-slate-500 mr-1">View:</label>
+          <select
+            value={focusedSection}
+            onChange={(e) => setFocusedSection(e.target.value)}
+            className="text-sm rounded-md border border-slate-200 bg-white px-3 py-1"
+          >
+            <option value="all">All Sections</option>
+            <option value="none">Collapse All</option>
+            {sections.map(s => (
+              <option key={s.id} value={s.id}>{s.label}</option>
+            ))}
+          </select>
+        </div>
+        <div className="flex items-center gap-2">
+          <button onClick={() => setFocusedSection('all')} className="text-sm px-3 py-1 rounded bg-slate-100 hover:bg-slate-200">Expand All</button>
+          <button onClick={() => setFocusedSection('none')} className="text-sm px-3 py-1 rounded bg-slate-100 hover:bg-slate-200">Collapse All</button>
+        </div>
+      </div>
+
       {/* Grid Layout */}
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 xl:gap-8">
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 xl:gap-8 mt-4">
         {/* 1. Identity */}
-        <ReportSection title="Identity" icon={Building2} colorClass="text-indigo-600" bgClass="bg-indigo-50/50">
+        <ReportSection id="identity" collapsible={true} forceOpen={focusedSection === 'all' ? true : (focusedSection === 'none' ? false : focusedSection === 'identity')} title="Identity" icon={Building2} colorClass="text-indigo-600" bgClass="bg-indigo-50/50">
           <InfoRow label="Pronunciation" value={data.identity.pronunciation} />
           <InfoRow label="Structure" value={data.identity.structure} />
           <InfoRow label="Scale" value={data.identity.scale} />
@@ -70,7 +102,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, sources }) => {
         </ReportSection>
 
         {/* 2. Operations */}
-        <ReportSection title="Operations & Strategy" icon={Target} colorClass="text-blue-600" bgClass="bg-blue-50/50">
+        <ReportSection id="operations" collapsible={true} forceOpen={focusedSection === 'all' ? true : (focusedSection === 'none' ? false : focusedSection === 'operations')} title="Operations & Strategy" icon={Target} colorClass="text-blue-600" bgClass="bg-blue-50/50">
           <div className="space-y-4">
             <div>
               <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Products & Services</h4>
@@ -110,7 +142,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, sources }) => {
         </ReportSection>
 
         {/* 3. Culture */}
-        <ReportSection title="Culture & Values" icon={Heart} colorClass="text-rose-600" bgClass="bg-rose-50/50">
+        <ReportSection id="culture" collapsible={true} forceOpen={focusedSection === 'all' ? true : (focusedSection === 'none' ? false : focusedSection === 'culture')} title="Culture & Values" icon={Heart} colorClass="text-rose-600" bgClass="bg-rose-50/50">
           <div className="space-y-4">
              <div>
               <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Mission & Vision</h4>
@@ -128,7 +160,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, sources }) => {
         </ReportSection>
 
         {/* 4. Recent & Relevant */}
-        <ReportSection title="Recent Intel" icon={Newspaper} colorClass="text-amber-600" bgClass="bg-amber-50/50">
+        <ReportSection id="recent" collapsible={true} forceOpen={focusedSection === 'all' ? true : (focusedSection === 'none' ? false : focusedSection === 'recent')} title="Recent Intel" icon={Newspaper} colorClass="text-amber-600" bgClass="bg-amber-50/50">
           <div className="space-y-4">
             <div>
               <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Latest News</h4>
@@ -148,7 +180,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, sources }) => {
         </ReportSection>
 
         {/* 5. Interview Insights */}
-        <ReportSection title="Interview Insights" icon={Briefcase} colorClass="text-emerald-600" bgClass="bg-emerald-50/50" className="md:col-span-2 lg:col-span-1">
+        <ReportSection id="interview" collapsible={true} forceOpen={focusedSection === 'all' ? true : (focusedSection === 'none' ? false : focusedSection === 'interview')} title="Interview Insights" icon={Briefcase} colorClass="text-emerald-600" bgClass="bg-emerald-50/50" className="md:col-span-2 lg:col-span-1">
           <div className="space-y-4">
              <div>
               <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Ideal Persona</h4>
@@ -229,6 +261,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, sources }) => {
             </div>
           </div>
         </div>
+        {/* small anchor: allow focusing via select */}
 
       </div>
 
