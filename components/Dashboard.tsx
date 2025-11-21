@@ -91,7 +91,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, sources }) => {
       </div>
 
       {/* Grid Layout */}
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 xl:gap-8 mt-4">
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 sm:gap-6 xl:gap-8 mt-4">
         {/* 1. Identity */}
         <ReportSection id="identity" collapsible={true} forceOpen={focusedSection === 'all' ? true : (focusedSection === 'none' ? false : focusedSection === 'identity')} title="Identity" icon={Building2} colorClass="text-indigo-600" bgClass="bg-indigo-50/50">
           <InfoRow label="Pronunciation" value={data.identity.pronunciation} />
@@ -217,7 +217,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, sources }) => {
         </ReportSection>
 
         {/* 6. The Cheat Sheet (sticky sidebar on wide screens) */}
-        <div className="md:col-span-2 lg:col-span-3 xl:col-span-1 mt-4 xl:mt-0 xl:sticky xl:top-28 h-fit">
+        <div className="md:col-span-2 lg:col-span-3 xl:col-span-3 mt-4 xl:mt-0 xl:sticky xl:top-28 h-fit">
           <div className="bg-gradient-to-br from-violet-600 to-indigo-700 rounded-2xl shadow-2xl overflow-hidden text-white border border-violet-200/30">
             <div className="px-4 sm:px-8 py-4 sm:py-6 border-b border-white/10 flex flex-col sm:flex-row items-center gap-3">
                <div className="p-2 rounded-lg bg-white/20 backdrop-blur-sm">
