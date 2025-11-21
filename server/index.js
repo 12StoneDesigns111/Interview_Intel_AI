@@ -16,7 +16,7 @@ const ai = new GoogleGenAI({ apiKey });
 
 app.post('/api/report', async (req, res) => {
   const { query } = req.body || {};
-  if (!query) return res.status(400).json({ error: 'Missing query' });
+  if (!query) return res.status(400).json({ error: true, message: 'Missing query' });
 
   try {
     const systemPrompt = `
@@ -52,13 +52,13 @@ app.post('/api/report', async (req, res) => {
       ?.map((chunk) => chunk.web)
       .filter((web) => web?.uri && web?.title) || [];
 
-    return res.json({ report, sources });
+  return res.json({ error: false, report, sources });
 
   } catch (error) {
     console.error('Gemini API Error:', error);
     // If the API returns structured error message, forward a friendly version
     const message = (error && error.message) ? error.message : 'Failed to generate report';
-    return res.status(500).json({ error: message });
+    return res.status(500).json({ error: true, message });
   }
 });
 

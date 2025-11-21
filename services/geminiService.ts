@@ -14,6 +14,12 @@ export const generateCompanyReport = async (companyNameOrUrl: string): Promise<S
   }
 
   const data = await res.json();
-  // Expecting { report, sources }
-  return data;
+  // Standardized server response: { error: boolean, message?, report?, sources? }
+  if (data?.error) {
+    // Prefer server-provided message, otherwise fallback
+    const msg = data?.message || 'Failed to generate report on server';
+    throw new Error(msg);
+  }
+
+  return { report: data.report, sources: data.sources } as unknown as SearchResult;
 };

@@ -6,6 +6,7 @@ import { Spinner } from './components/Spinner';
 import { CompanyReport, GroundingSource } from './types';
 
 const App: React.FC = () => {
+  const isDev = (import.meta as any)?.env?.DEV;
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -28,7 +29,12 @@ const App: React.FC = () => {
       setReport(data);
       setSources(sourceData);
     } catch (err: any) {
-      setError(err.message || "An unexpected error occurred while researching.");
+      const msg = err?.message || "An unexpected error occurred while researching.";
+      setError(msg);
+      // In dev, also log full error for debugging
+      if (isDev) {
+        console.error('Search error details:', err);
+      }
     } finally {
       setLoading(false);
     }
@@ -153,6 +159,9 @@ const App: React.FC = () => {
             >
               Try Again
             </button>
+            {isDev && (
+              <pre className="mt-3 text-xs text-left bg-white/50 p-2 rounded max-h-40 overflow-auto text-rose-700">{String(error)}</pre>
+            )}
           </div>
         )}
 
