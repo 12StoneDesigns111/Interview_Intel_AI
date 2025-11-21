@@ -47,19 +47,19 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, sources }) => {
   }
 
   return (
-    <div className="w-full max-w-7xl mx-auto space-y-8 pb-20">
+  <div className="w-full max-w-7xl mx-auto space-y-8 pb-20 px-2 sm:px-4">
       {/* Header */}
       <div className="text-center space-y-2">
-        <h2 className="text-4xl font-extrabold text-slate-900 tracking-tight">{data.companyName}</h2>
-        <div className="flex items-center justify-center gap-2 text-slate-500">
-          <span className="px-3 py-1 bg-slate-100 rounded-full text-sm font-medium">{data.identity.industry}</span>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight break-words">{data.companyName}</h2>
+        <div className="flex flex-wrap items-center justify-center gap-2 text-slate-500 text-xs sm:text-sm">
+          <span className="px-2 sm:px-3 py-1 bg-slate-100 rounded-full font-medium">{data.identity.industry}</span>
           <span>•</span>
-          <span className="text-sm">{data.identity.hq}</span>
+          <span>{data.identity.hq}</span>
         </div>
       </div>
 
       {/* Grid Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
         {/* 1. Identity */}
         <ReportSection title="Identity" icon={Building2} colorClass="text-indigo-600" bgClass="bg-indigo-50/50">
           <InfoRow label="Pronunciation" value={data.identity.pronunciation} />
@@ -187,16 +187,16 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, sources }) => {
         {/* 6. The Cheat Sheet */}
         <div className="md:col-span-2 lg:col-span-3 mt-4">
           <div className="bg-gradient-to-br from-violet-600 to-indigo-700 rounded-2xl shadow-xl overflow-hidden text-white">
-            <div className="px-8 py-6 border-b border-white/10 flex items-center gap-3">
+            <div className="px-4 sm:px-8 py-4 sm:py-6 border-b border-white/10 flex flex-col sm:flex-row items-center gap-3">
                <div className="p-2 rounded-lg bg-white/20 backdrop-blur-sm">
                   <Zap size={24} className="text-yellow-300" />
                 </div>
-                <div>
-                  <h3 className="font-bold text-2xl">The Cheat Sheet</h3>
-                  <p className="text-indigo-200 text-sm">Your last-minute review guide</p>
+                <div className="text-center sm:text-left">
+                  <h3 className="font-bold text-lg sm:text-2xl">The Cheat Sheet</h3>
+                  <p className="text-indigo-200 text-xs sm:text-sm">Your last-minute review guide</p>
                 </div>
             </div>
-            <div className="p-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="p-4 sm:p-8 grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
               <div className="space-y-6">
                 <div>
                   <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-300 mb-3">Fast Facts</h4>
@@ -221,11 +221,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, sources }) => {
                 </div>
               </div>
               
-              <div className="bg-white text-slate-900 rounded-xl p-6 shadow-lg">
-                 <h4 className="text-sm font-bold uppercase tracking-wider text-violet-600 mb-3 flex items-center gap-2">
+              <div className="bg-white text-slate-900 rounded-xl p-4 sm:p-6 shadow-lg">
+                 <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-violet-600 mb-3 flex items-center gap-2">
                    What to Say to Impress Them
                  </h4>
-                 <p className="text-sm leading-7 text-slate-700 whitespace-pre-line">
+                 <p className="text-xs sm:text-sm leading-6 sm:leading-7 text-slate-700 whitespace-pre-line">
                    {data.cheatSheet.impressStrategy}
                  </p>
               </div>
@@ -237,16 +237,16 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, sources }) => {
 
       {/* Sources Footer */}
       {sources.length > 0 && (
-        <div className="border-t border-slate-200 pt-8 mt-8">
-          <h4 className="text-sm font-semibold text-slate-500 mb-4 uppercase tracking-wider">Research Sources</h4>
-          <div className="flex flex-wrap gap-3">
+        <div className="border-t border-slate-200 pt-8 mt-8 overflow-x-auto">
+          <h4 className="text-xs sm:text-sm font-semibold text-slate-500 mb-4 uppercase tracking-wider">Research Sources</h4>
+          <div className="flex flex-nowrap gap-2 sm:gap-3">
             {sources.map((source, idx) => (
               <a 
                 key={idx} 
                 href={source.uri} 
                 target="_blank" 
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-200 rounded-full text-xs text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-colors"
+                className="inline-flex items-center gap-1.5 px-2 sm:px-3 py-1.5 bg-white border border-slate-200 rounded-full text-xs sm:text-xs text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-colors whitespace-nowrap"
               >
                 <ExternalLink size={10} />
                 {source.title || new URL(source.uri || '').hostname}
