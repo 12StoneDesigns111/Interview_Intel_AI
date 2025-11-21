@@ -13,15 +13,41 @@ import {
   Swords
 } from 'lucide-react';
 
+
 interface DashboardProps {
   data: CompanyReport;
   sources: GroundingSource[];
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({ data, sources }) => {
+  // Defensive: check for required fields
+  if (!data || !data.identity || !data.operations || !data.culture || !data.recent || !data.interview || !data.cheatSheet) {
+    // Retry button: calls window.location.reload() to reset the app state
+    return (
+      <div className="w-full max-w-2xl mx-auto mt-12 p-6 bg-red-50 border border-red-200 rounded-xl text-red-700 text-center animate-fade-in">
+        <h2 className="text-2xl font-bold mb-2">Incomplete or Invalid Report</h2>
+        <p className="mb-2">Sorry, the AI response was missing required information.<br />
+          <span className="text-slate-700">This sometimes happens if the company is obscure or the AI is overloaded.</span>
+        </p>
+        <button
+          className="mt-3 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold shadow transition-colors"
+          onClick={() => window.location.reload()}
+        >
+          Retry
+        </button>
+        <div className="mt-4 text-xs text-left bg-white/70 p-2 rounded text-rose-700 overflow-auto max-h-40">
+          <strong>Debug info:</strong>
+          <pre className="whitespace-pre-wrap">{JSON.stringify(data, null, 2)}</pre>
+        </div>
+        <div className="mt-4 text-sm text-slate-600">
+          <span>If this keeps happening, try a different company name or come back later.</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full max-w-7xl mx-auto space-y-8 pb-20">
-      
       {/* Header */}
       <div className="text-center space-y-2">
         <h2 className="text-4xl font-extrabold text-slate-900 tracking-tight">{data.companyName}</h2>
@@ -34,7 +60,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, sources }) => {
 
       {/* Grid Layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        
         {/* 1. Identity */}
         <ReportSection title="Identity" icon={Building2} colorClass="text-indigo-600" bgClass="bg-indigo-50/50">
           <InfoRow label="Pronunciation" value={data.identity.pronunciation} />
