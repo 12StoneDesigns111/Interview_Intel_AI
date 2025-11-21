@@ -71,8 +71,8 @@ export default async function handler(req, res) {
   try {
     const ai = new GoogleGenAI({ apiKey });
 
-    const systemPrompt = `You are an expert Personal Company Research Assistant for job interviews. Return a valid JSON object only.`;
-    const userPrompt = `Research this company: "${query}". Ensure data is up-to-date using Google Search.`;
+  const systemPrompt = `You are an expert Personal Company Research Assistant for job interviews. Return ONLY a valid JSON object in the following exact TypeScript structure, filling every field with detailed, up-to-date, and relevant information. Do not omit any fields. If you don't know, make a best guess based on public info.\n\nTypeScript type:\n\ninterface CompanyReport {\n  companyName: string;\n  identity: {\n    pronunciation: string;\n    structure: string;\n    industry: string;\n    history: string;\n    hq: string;\n    scale: string;\n  };\n  operations: {\n    products: string;\n    customers: string;\n    competitors: { name: string; differentiation: string; }[];\n    swot: { strengths: string; weaknesses: string; valueProp: string; };\n  };\n  culture: {\n    mission: string;\n    reputation: string;\n    insiderView: string;\n  };\n  recent: {\n    news: string[];\n    growth: string;\n    announcements: string;\n    awareness: string;\n  };\n  interview: {\n    persona: string;\n    themes: string[];\n    skills: string[];\n    edge: string[];\n  };\n  cheatSheet: {\n    bullets: string[];\n    fastFacts: string[];\n    impressStrategy: string;\n  };\n}\n\n`;
+  const userPrompt = `Research this company: "${query}". Use Google Search for up-to-date info. Fill every field in the JSON structure above with detailed, relevant, and specific information for a job interview. Do not return markdown, only valid JSON.`;
 
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
