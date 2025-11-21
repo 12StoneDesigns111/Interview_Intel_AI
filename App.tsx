@@ -68,11 +68,11 @@ const App: React.FC = () => {
             
             {!report && !loading && (
               <div className="space-y-4 animate-fade-in">
-                <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+                <h1 className="text-2xl xs:text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
                   Win the Interview <br/>
                   <span className="text-indigo-600">Before You Walk In.</span>
                 </h1>
-                <p className="text-lg text-slate-600 max-w-lg mx-auto">
+                <p className="text-base xs:text-lg text-slate-600 max-w-lg mx-auto leading-snug">
                   Automated deep-dive research on any company. Get culture, strategy, and interview cheat sheets in seconds.
                 </p>
               </div>
@@ -81,22 +81,22 @@ const App: React.FC = () => {
             <form onSubmit={handleSearch} className="relative group">
               <div className={`absolute -inset-1 bg-gradient-to-r from-indigo-500 to-violet-500 rounded-xl opacity-20 group-hover:opacity-40 transition duration-200 ${loading ? 'animate-pulse' : ''}`}></div>
               <div className="relative flex items-center">
-                <div className="absolute left-4 text-slate-400 pointer-events-none">
-                  <Search size={20} />
+                <div className="absolute left-3 sm:left-4 text-slate-400 pointer-events-none">
+                  <Search size={18} className="sm:w-5 sm:h-5" />
                 </div>
                 <input
                   type="text"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Enter company name (e.g., Netflix) or website URL..."
-                  className="w-full bg-white border-0 rounded-xl py-4 pl-12 pr-32 shadow-xl text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-500 outline-none transition-all text-lg"
+                  className="w-full bg-white border-0 rounded-xl py-3 sm:py-4 pl-10 sm:pl-12 pr-24 sm:pr-32 shadow-xl text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-500 outline-none transition-all text-base sm:text-lg"
                   disabled={loading}
                 />
-                <div className="absolute right-2">
+                <div className="absolute right-1 sm:right-2">
                   <button
                     type="submit"
                     disabled={loading || !query.trim()}
-                    className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="bg-indigo-600 hover:bg-indigo-700 text-white px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed text-base sm:text-lg"
                   >
                     {loading ? <Spinner /> : <><Sparkles size={16} /> Research</>}
                   </button>
@@ -112,7 +112,7 @@ const App: React.FC = () => {
                      <button 
                       key={company}
                       onClick={() => setQuery(company)}
-                      className="px-3 py-1.5 bg-white border border-slate-200 shadow-sm rounded-full text-sm text-slate-600 hover:border-indigo-300 hover:text-indigo-600 transition-colors"
+                      className="px-2 sm:px-3 py-1 sm:py-1.5 bg-white border border-slate-200 shadow-sm rounded-full text-xs sm:text-sm text-slate-600 hover:border-indigo-300 hover:text-indigo-600 transition-colors"
                      >
                        {company}
                      </button>
