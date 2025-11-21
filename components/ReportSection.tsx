@@ -33,7 +33,7 @@ export const ReportSection: React.FC<ReportSectionProps> = ({
   const toggle = () => setOpen((v) => !v);
 
   return (
-    <section id={id} className={`group bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden ${className} ${collapsible ? 'cursor-pointer' : ''}`}>
+    <section id={id} className={`group bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden ${className} ${collapsible ? 'cursor-pointer' : ''}`} style={{ minWidth: '12rem' }}>
       <div className={`px-3 sm:px-6 py-3 sm:py-4 border-b border-slate-100 flex items-center gap-2 sm:gap-3 ${bgClass}`}>
         <div className={`p-2 rounded-lg bg-white/80 backdrop-blur-sm shadow-sm ${colorClass}`}>
           <Icon size={18} className="sm:w-5 sm:h-5" />
@@ -46,9 +46,10 @@ export const ReportSection: React.FC<ReportSectionProps> = ({
         )}
       </div>
       <div
-        className={`p-3 sm:p-6 text-slate-700 transition-all duration-300 overflow-hidden ${
+        className={`p-3 sm:p-6 text-slate-700 leading-relaxed transition-all duration-300 overflow-hidden ${
           !collapsible ? 'max-h-[2000px]' : (open ? 'max-h-[2000px]' : 'max-h-0 group-hover:max-h-[2000px]')
         }`}
+        style={{ lineHeight: 1.6 }}
       >
         {/* Layout children horizontally on larger screens */}
         <div className="section-body flex flex-col md:flex-row md:flex-wrap gap-4">

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Sparkles, ArrowRight, Briefcase } from 'lucide-react';
+import ThemeToggle from './components/ThemeToggle';
 import { generateCompanyReport } from './services/geminiService';
 import { Dashboard } from './components/Dashboard';
 import { Spinner } from './components/Spinner';
@@ -54,8 +55,9 @@ const App: React.FC = () => {
             <Briefcase className="h-6 w-6" />
             <span className="font-bold text-lg tracking-tight text-slate-900">Interview Intel AI</span>
           </div>
-          <div className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded">
-            Powered by Gemini 2.5
+          <div className="flex items-center gap-3">
+            <div className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded">Powered by Gemini 2.5</div>
+            <ThemeToggle />
           </div>
           {/* No logout button, auth removed */}
         </div>
