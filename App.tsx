@@ -47,16 +47,16 @@ const App: React.FC = () => {
 
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col">
       {/* Navbar */}
-      <header className="glassmorphism border-b border-slate-200 sticky top-0 z-50">
+      <header className="glassmorphism bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2 text-indigo-600">
             <Briefcase className="h-6 w-6" />
-            <span className="font-bold text-lg tracking-tight text-slate-900">Interview Intel AI</span>
+            <span className="font-bold text-lg tracking-tight text-slate-900 dark:text-slate-100">Interview Intel AI</span>
           </div>
           <div className="flex items-center gap-3">
-            <div className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded-full border border-slate-300">Powered by Gemini 2.5</div>
+            <div className="text-xs font-medium text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded-full border border-slate-300 dark:border-slate-600">Powered by Gemini 2.5</div>
             <ThemeToggle />
           </div>
           {/* No logout button, auth removed */}
@@ -65,7 +65,7 @@ const App: React.FC = () => {
 
       <main className="flex-grow flex flex-col">
         {/* Hero / Search Section */}
-        <div className={`transition-all duration-500 ease-in-out ${report ? 'py-10 bg-white border-b border-slate-200' : 'flex-grow flex flex-col justify-center items-center py-20'}`}>
+        <div className={`transition-all duration-500 ease-in-out ${report ? 'py-10 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700' : 'flex-grow flex flex-col justify-center items-center py-20'}`}>
           <div className="w-full max-w-2xl px-4 space-y-8 text-center">
             
             {!report && !loading && (
@@ -74,7 +74,7 @@ const App: React.FC = () => {
                   Win the Interview <br/>
                   <span className="text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-violet-600 bg-clip-text">Before You Walk In.</span>
                 </h1>
-                <p className="text-base xs:text-lg text-slate-600 max-w-lg mx-auto leading-snug">
+                <p className="text-base xs:text-lg text-slate-600 dark:text-slate-400 max-w-lg mx-auto leading-snug">
                   Automated deep-dive research on any company. Get culture, strategy, and interview cheat sheets in seconds.
                 </p>
               </div>
@@ -83,7 +83,7 @@ const App: React.FC = () => {
             <form onSubmit={handleSearch} className="relative group">
               <div className={`absolute -inset-1 bg-gradient-to-r from-indigo-500 to-violet-500 rounded-xl opacity-20 group-hover:opacity-40 transition duration-200 ${loading ? 'animate-pulse' : ''}`}></div>
               <div className="relative flex items-center">
-                <div className="absolute left-3 sm:left-4 text-slate-400 pointer-events-none">
+                <div className="absolute left-3 sm:left-4 text-slate-400 dark:text-slate-500 pointer-events-none">
                   <Search size={18} className="sm:w-5 sm:h-5" />
                 </div>
                 <input
@@ -91,7 +91,7 @@ const App: React.FC = () => {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Enter company name (e.g., Netflix) or website URL..."
-                  className="w-full bg-white border-0 rounded-xl py-4 sm:py-5 pl-10 sm:pl-12 pr-24 sm:pr-32 shadow-lg focus:shadow-2xl text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-500 outline-none transition-all text-base sm:text-lg"
+                  className="w-full bg-white dark:bg-slate-800 border-0 rounded-xl py-4 sm:py-5 pl-10 sm:pl-12 pr-24 sm:pr-32 shadow-lg focus:shadow-2xl text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none transition-all text-base sm:text-lg"
                   disabled={loading}
                 />
                 <div className="absolute right-1 sm:right-2">
@@ -108,13 +108,13 @@ const App: React.FC = () => {
 
             {!report && !loading && (
               <div className="pt-4">
-                 <p className="text-xs text-slate-400 font-medium mb-3 uppercase tracking-wide">Popular Searches</p>
+                 <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mb-3 uppercase tracking-wide">Popular Searches</p>
                  <div className="flex flex-wrap justify-center gap-2">
                    {exampleCompanies.map(company => (
                      <button 
                       key={company}
                       onClick={() => setQuery(company)}
-                      className="px-2 sm:px-3 py-1 sm:py-1.5 bg-white border border-slate-200 shadow-sm rounded-full text-xs sm:text-sm text-slate-600 hover:border-indigo-300 hover:text-indigo-600 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                      className="px-2 sm:px-3 py-1 sm:py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm rounded-full text-xs sm:text-sm text-slate-600 dark:text-slate-400 hover:border-indigo-300 dark:hover:border-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
                      >
                        {company}
                      </button>
@@ -129,19 +129,19 @@ const App: React.FC = () => {
         {loading && (
           <div className="flex-grow flex flex-col items-center justify-center p-12 space-y-6">
             <div className="w-16 h-16 relative">
-              <div className="absolute inset-0 border-4 border-indigo-100 rounded-full"></div>
+              <div className="absolute inset-0 border-4 border-indigo-100 dark:border-indigo-900 rounded-full"></div>
               <div className="absolute inset-0 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
             </div>
             <div className="text-center space-y-2">
-              <h3 className="text-xl font-bold text-slate-900">Analyzing {query}...</h3>
-              <p className="text-slate-500">Gathering intelligence on culture, strategy, and recent news.</p>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Analyzing {query}...</h3>
+              <p className="text-slate-500 dark:text-slate-400">Gathering intelligence on culture, strategy, and recent news.</p>
             </div>
-            <div className="max-w-sm w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+            <div className="max-w-sm w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
               <div className="h-full bg-indigo-600 animate-progress origin-left w-full"></div>
             </div>
             
             {/* Simulated loading steps for UX */}
-            <div className="space-y-2 text-sm text-slate-400 pt-4">
+            <div className="space-y-2 text-sm text-slate-400 dark:text-slate-500 pt-4">
                <div className="flex items-center gap-2 animate-pulse">
                  <ArrowRight size={14} /> Scanning public records...
                </div>
@@ -157,23 +157,23 @@ const App: React.FC = () => {
 
         {/* Error State */}
         {error && (
-          <div className="max-w-2xl mx-auto mt-8 p-4 bg-red-50 border border-red-100 rounded-xl text-red-700 text-center">
+          <div className="max-w-2xl mx-auto mt-8 p-4 bg-red-50 dark:bg-red-950 border border-red-100 dark:border-red-900 rounded-xl text-red-700 dark:text-red-300 text-center">
             <p className="font-medium">{error}</p>
             <button 
               onClick={() => handleSearch({ preventDefault: () => {} } as React.FormEvent)}
-              className="mt-2 text-sm underline hover:text-red-800"
+              className="mt-2 text-sm underline hover:text-red-800 dark:hover:text-red-200"
             >
               Try Again
             </button>
             {isDev && (
-              <pre className="mt-3 text-xs text-left bg-white/50 p-2 rounded max-h-40 overflow-auto text-rose-700">{String(error)}</pre>
+              <pre className="mt-3 text-xs text-left bg-white/50 dark:bg-slate-800/50 p-2 rounded max-h-40 overflow-auto text-rose-700 dark:text-rose-300">{String(error)}</pre>
             )}
           </div>
         )}
 
         {/* Report View */}
         {report && !loading && (
-          <div className="flex-grow px-4 py-8">
+          <div className="flex-grow bg-slate-50 dark:bg-slate-900 px-4 py-8">
             <Dashboard data={report} sources={sources} />
           </div>
         )}
