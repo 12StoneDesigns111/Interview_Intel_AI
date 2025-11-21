@@ -47,16 +47,16 @@ const App: React.FC = () => {
 
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="min-h-screen flex flex-col">
       {/* Navbar */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
+      <header className="glassmorphism border-b border-slate-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2 text-indigo-600">
             <Briefcase className="h-6 w-6" />
             <span className="font-bold text-lg tracking-tight text-slate-900">Interview Intel AI</span>
           </div>
           <div className="flex items-center gap-3">
-            <div className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded">Powered by Gemini 2.5</div>
+            <div className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded-full border border-slate-300">Powered by Gemini 2.5</div>
             <ThemeToggle />
           </div>
           {/* No logout button, auth removed */}
@@ -70,9 +70,9 @@ const App: React.FC = () => {
             
             {!report && !loading && (
               <div className="space-y-4 animate-fade-in">
-                <h1 className="text-2xl xs:text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                <h1 className="text-3xl md:text-5xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-violet-600 bg-clip-text text-transparent tracking-tight leading-tight">
                   Win the Interview <br/>
-                  <span className="text-indigo-600">Before You Walk In.</span>
+                  <span className="text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-violet-600 bg-clip-text">Before You Walk In.</span>
                 </h1>
                 <p className="text-base xs:text-lg text-slate-600 max-w-lg mx-auto leading-snug">
                   Automated deep-dive research on any company. Get culture, strategy, and interview cheat sheets in seconds.
@@ -91,7 +91,7 @@ const App: React.FC = () => {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Enter company name (e.g., Netflix) or website URL..."
-                  className="w-full bg-white border-0 rounded-xl py-3 sm:py-4 pl-10 sm:pl-12 pr-24 sm:pr-32 shadow-xl text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-500 outline-none transition-all text-base sm:text-lg"
+                  className="w-full bg-white border-0 rounded-xl py-4 sm:py-5 pl-10 sm:pl-12 pr-24 sm:pr-32 shadow-lg focus:shadow-2xl text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-500 outline-none transition-all text-base sm:text-lg"
                   disabled={loading}
                 />
                 <div className="absolute right-1 sm:right-2">
@@ -114,7 +114,7 @@ const App: React.FC = () => {
                      <button 
                       key={company}
                       onClick={() => setQuery(company)}
-                      className="px-2 sm:px-3 py-1 sm:py-1.5 bg-white border border-slate-200 shadow-sm rounded-full text-xs sm:text-sm text-slate-600 hover:border-indigo-300 hover:text-indigo-600 transition-colors"
+                      className="px-2 sm:px-3 py-1 sm:py-1.5 bg-white border border-slate-200 shadow-sm rounded-full text-xs sm:text-sm text-slate-600 hover:border-indigo-300 hover:text-indigo-600 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
                      >
                        {company}
                      </button>
@@ -173,7 +173,7 @@ const App: React.FC = () => {
 
         {/* Report View */}
         {report && !loading && (
-          <div className="flex-grow bg-slate-50 px-4 py-8">
+          <div className="flex-grow px-4 py-8">
             <Dashboard data={report} sources={sources} />
           </div>
         )}

@@ -144,7 +144,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, sources }) => {
             </div>
           </Card>
 
-          <Card title="What to Say to Impress Them" accent accentColor="border-amber-400" collapsible defaultOpen>
+          <Card title="What to Say to Impress Them" accent accentColor="border-emerald-400" collapsible defaultOpen>
             <div style={{ lineHeight: 1.8 }} className="text-sm text-slate-700 whitespace-pre-line">
               {cleanText(data.cheatSheet.impressStrategy)}
             </div>
