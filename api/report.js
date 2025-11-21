@@ -9,6 +9,21 @@ export default async function handler(req, res) {
   const { query } = req.body || {};
   if (!query) return res.status(400).json({ error: true, message: 'Missing query' });
 
+  // simple auth: expect Authorization: Bearer <token>
+  const auth = req.headers['authorization'] || req.headers['Authorization'];
+  const sessionSecret = process.env.GEMINI_SESSION_SECRET || 'dev-session-secret';
+  if (!auth || !String(auth).startsWith('Bearer ')) {
+    return res.status(401).json({ error: true, message: 'Missing auth token' });
+  }
+  const token = String(auth).split(' ')[1];
+  try {
+    // verify token
+    const jwt = await import('jsonwebtoken');
+    jwt.verify(token, sessionSecret);
+  } catch (err) {
+    return res.status(401).json({ error: true, message: 'Invalid or expired token' });
+  }
+
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) return res.status(500).json({ error: true, message: 'Server missing GEMINI_API_KEY' });
 

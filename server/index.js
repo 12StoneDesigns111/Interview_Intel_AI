@@ -14,7 +14,37 @@ if (!apiKey) {
 
 const ai = new GoogleGenAI({ apiKey });
 
-app.post('/api/report', async (req, res) => {
+// Simple login endpoint - issues a JWT when correct password provided
+app.post('/api/login', (req, res) => {
+  const { password } = req.body || {};
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  const sessionSecret = process.env.GEMINI_SESSION_SECRET || 'dev-session-secret';
+
+  if (!adminPassword) return res.status(500).json({ error: true, message: 'Server not configured for login' });
+  if (!password) return res.status(400).json({ error: true, message: 'Missing password' });
+  if (password !== adminPassword) return res.status(401).json({ error: true, message: 'Invalid credentials' });
+
+  const jwt = require('jsonwebtoken');
+  const token = jwt.sign({ user: 'admin' }, sessionSecret, { expiresIn: '2h' });
+  return res.json({ error: false, token });
+});
+
+// Middleware to verify JWT token for protected routes
+function verifyTokenMiddleware(req, res, next) {
+  const auth = req.headers['authorization'];
+  const sessionSecret = process.env.GEMINI_SESSION_SECRET || 'dev-session-secret';
+  if (!auth || !String(auth).startsWith('Bearer ')) return res.status(401).json({ error: true, message: 'Missing auth token' });
+  const token = String(auth).split(' ')[1];
+  try {
+    const jwt = require('jsonwebtoken');
+    jwt.verify(token, sessionSecret);
+    return next();
+  } catch (err) {
+    return res.status(401).json({ error: true, message: 'Invalid or expired token' });
+  }
+}
+
+app.post('/api/report', verifyTokenMiddleware, async (req, res) => {
   const { query } = req.body || {};
   if (!query) return res.status(400).json({ error: true, message: 'Missing query' });
 

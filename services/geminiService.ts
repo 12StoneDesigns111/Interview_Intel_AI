@@ -2,9 +2,13 @@ import { CompanyReport, SearchResult } from '../types';
 
 // Client-side shim: call the server endpoint which keeps the real API key secret.
 export const generateCompanyReport = async (companyNameOrUrl: string): Promise<SearchResult> => {
+  const token = typeof window !== 'undefined' ? localStorage.getItem('iit_token') : null;
+  const headers: Record<string,string> = { 'Content-Type': 'application/json' };
+  if (token) headers['Authorization'] = `Bearer ${token}`;
+
   const res = await fetch('/api/report', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers,
     body: JSON.stringify({ query: companyNameOrUrl })
   });
 

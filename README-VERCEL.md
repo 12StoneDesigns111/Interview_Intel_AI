@@ -8,6 +8,9 @@ Quick steps to deploy this project to Vercel and keep your API key secret.
 2. Add the `GEMINI_API_KEY` as a Vercel Environment Variable (Project Settings > Environment Variables)
    - Key: `GEMINI_API_KEY`
    - Value: your API key from Google Cloud
+2.5 (Optional but recommended) Add login credentials and session secret:
+   - Key: `ADMIN_PASSWORD` -> a strong password used to sign in to the app's admin UI
+   - Key: `GEMINI_SESSION_SECRET` -> a secret used to sign JWT sessions (keep this safe)
 
 3. Deploy
    - Option A (recommended): Connect your Git repository to Vercel and deploy from the Git provider.

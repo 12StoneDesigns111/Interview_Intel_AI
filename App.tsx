@@ -4,9 +4,15 @@ import { generateCompanyReport } from './services/geminiService';
 import { Dashboard } from './components/Dashboard';
 import { Spinner } from './components/Spinner';
 import { CompanyReport, GroundingSource } from './types';
+import { Login } from './components/Login';
 
 const App: React.FC = () => {
   const isDev = (import.meta as any)?.env?.DEV;
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    try {
+      return typeof window !== 'undefined' && !!localStorage.getItem('iit_token');
+    } catch (e) { return false; }
+  });
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -42,6 +48,10 @@ const App: React.FC = () => {
 
   const exampleCompanies = ["Google", "Airbnb", "SpaceX", "McKinsey & Company"];
 
+  if (!isAuthenticated) {
+    return <Login onLogin={() => setIsAuthenticated(true)} />;
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
       {/* Navbar */}
@@ -53,6 +63,14 @@ const App: React.FC = () => {
           </div>
           <div className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded">
             Powered by Gemini 2.5
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => { localStorage.removeItem('iit_token'); setIsAuthenticated(false); }}
+              className="text-sm text-slate-500 underline px-3 py-1 rounded"
+            >
+              Logout
+            </button>
           </div>
         </div>
       </header>
