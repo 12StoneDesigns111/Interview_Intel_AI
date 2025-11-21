@@ -4,6 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Interview Intel AI</title>
+    <script>
+      // Initialize Tailwind to use 'class' strategy for dark mode
+      tailwind = window.tailwind || {};
+      tailwind.config = { darkMode: 'class' };
+
+      // Apply saved theme early to avoid flash (reads the same key as ThemeToggle)
+      try {
+        const theme = localStorage.getItem('iiai_theme');
+        if (theme === 'dark' || (!theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
