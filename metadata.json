@@ -1,0 +1,5 @@
+{
+  "name": "Interview Intel AI",
+  "description": "Your personal AI research assistant for job interviews. Enter a company name to instantly generate a comprehensive briefing report including culture, strategy, and a cheat sheet.",
+  "requestFramePermissions": []
+}
